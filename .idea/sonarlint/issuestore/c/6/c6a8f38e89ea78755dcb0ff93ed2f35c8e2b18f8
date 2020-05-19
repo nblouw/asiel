@@ -1,0 +1,10 @@
+
+ƒ
+java:S4165 "fRemove this useless assignment; "dierNaam" already holds the assigned value along all execution paths.(Ïª«ó8Ø¢é¢.
+H
+java:S1172"+Remove this unused method parameter "naam".(§‹„×8Ø¢é¢.
+†
+java:S4165"dRemove this useless assignment; "dierId" already holds the assigned value along all execution paths.(çğ ¼úÿÿÿÿ8•³ä¢.
+o	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ÄÔœš
+F
+java:S1172")Remove this unused method parameter "id".(·³îì8•³ä¢.

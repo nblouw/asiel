@@ -1,0 +1,6 @@
+
+‡
+java:S4165("jRemove this useless assignment; "verblijfNaam" already holds the assigned value along all execution paths.(›”£ò8‡÷Ÿñ¡.
+…
+java:S4165 "hRemove this useless assignment; "verblijfId" already holds the assigned value along all execution paths.(‰ÛÕ²8îüžñ¡.
+o	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ÄÔœš
