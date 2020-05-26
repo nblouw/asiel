@@ -11,7 +11,7 @@ import java.util.List;
 @Stateless
 public class DierDao {
 
-    @PersistenceContext(name = "dier")
+    @PersistenceContext
     private EntityManager entityManager;
 
     public List<Dier> getDieren() {
@@ -27,6 +27,20 @@ public class DierDao {
 
     public void createDier(Dier dier) {
         entityManager.persist(dier);
+    }
+
+    public Dier updateDier(Dier dier, long dierId) {
+        dier.setId(dierId);
+        dier.setDierNaam(dier.getDierNaam());
+        dier.setDatumBinnenkomst(dier.getDatumBinnenkomst());
+        dier.setDierSoort(dier.getDierSoort());
+        dier.setDierGeslacht(dier.getDierGeslacht());
+        return entityManager.merge(dier);
+    }
+
+    public void deleteDier(long dierId) {
+        Dier dier = getDier(dierId);
+        entityManager.remove(dier);
     }
 
 }

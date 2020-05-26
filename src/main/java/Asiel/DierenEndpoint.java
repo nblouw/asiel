@@ -33,11 +33,22 @@ public class DierenEndpoint {
         return Response.ok(dierDAO.getDier(dierId)).build();
     }
 
-
     @POST
     public Response createDier(Dier dier) {
         dierDAO.createDier(dier);
         return Response.noContent().build();
     }
 
+    @PUT
+    @Path("/{id}")
+    public Response updateDier(Dier dier, @PathParam("id") Long dierId) {
+        return Response.ok(dierDAO.updateDier(dier, dierId)).build();
+    }
+
+    @DELETE
+    @Path("/{id}")
+    public Response deleteDier(@PathParam("id") Long dierId) {
+        dierDAO.deleteDier(dierId);
+        return Response.noContent().build();
+    }
 }

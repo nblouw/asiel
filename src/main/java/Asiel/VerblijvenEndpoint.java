@@ -33,4 +33,23 @@ public class VerblijvenEndpoint {
     public Response getVerblijf(@PathParam("id") long verblijfId) {
         return Response.ok(verblijfDao.getVerblijf(verblijfId)).build();
     }
+
+    @POST
+    public Response createVerblijf(Verblijf verblijf) {
+        verblijfDao.createVerblijf(verblijf);
+        return Response.noContent().build();
+    }
+
+    @PUT
+    @Path("/{id}")
+    public Response updateVerblijf(Verblijf verblijf, @PathParam("id") Long verblijfId) {
+        return Response.ok(verblijfDao.updateVerblijf(verblijf, verblijfId)).build();
+    }
+
+    @DELETE
+    @Path("/{id}")
+    public Response deleteVerblijf(@PathParam("id") Long verblijfId) {
+        verblijfDao.deleteVerblijf(verblijfId);
+        return Response.noContent().build();
+    }
 }
