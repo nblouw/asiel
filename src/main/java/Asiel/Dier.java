@@ -1,5 +1,8 @@
 package Asiel;
 
+import Asiel.enums.DierGeslacht;
+import Asiel.enums.DierSoort;
+
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
@@ -23,7 +26,8 @@ public class Dier implements Serializable {
     private LocalDate datumBinnenkomst;
 
     @Column
-    private String dierSoort;
+    @Enumerated(EnumType.STRING)
+    private DierSoort dierSoort;
 
     @Column
     @Enumerated(EnumType.STRING)
@@ -53,11 +57,11 @@ public class Dier implements Serializable {
         this.datumBinnenkomst = datumBinnenkomst;
     }
 
-    public String getDierSoort() {
+    public DierSoort getDierSoort() {
         return dierSoort;
     }
 
-    public void setDierSoort(String dierSoort) {
+    public void setDierSoort(DierSoort dierSoort) {
         this.dierSoort = dierSoort;
     }
 
@@ -69,5 +73,15 @@ public class Dier implements Serializable {
         this.dierGeslacht = dierGeslacht;
     }
 
+    public Verblijf getVerblijf() {
+        return verblijf;
+    }
+
+    public void setVerblijf(Verblijf verblijf) {
+        this.verblijf = verblijf;
+    }
+
+    @ManyToOne
+    private Verblijf verblijf;
 }
 

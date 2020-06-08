@@ -1,6 +1,8 @@
 package Asiel;
 
 import Asiel.dao.DierDao;
+import Asiel.dto.DierDto;
+import Asiel.service.DierService;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
@@ -11,11 +13,12 @@ import javax.ws.rs.core.Response;
 @Consumes(MediaType.APPLICATION_JSON)
 @Path("/dieren")
 public class DierenEndpoint {
-    private DierDao dierDAO;
+
+    private DierService dierService;
 
     @Inject
-    public DierenEndpoint(DierDao dierDAO) {
-        this.dierDAO = dierDAO;
+    public DierenEndpoint(DierService dierService) {
+        this.dierService = dierService;
     }
 
     public DierenEndpoint() {
@@ -24,31 +27,32 @@ public class DierenEndpoint {
 
     @GET
     public Response getDieren() {
-        return Response.ok(dierDAO.getDieren()).build();
+        return Response.ok(dierService.getDieren()).build();
     }
 
     @GET
     @Path("/{id}")
     public Response getDier(@PathParam("id") Long dierId) {
-        return Response.ok(dierDAO.getDier(dierId)).build();
+        return Response.ok(dierService.getAnimalById(dierId)).build();
     }
 
     @POST
-    public Response createDier(Dier dier) {
-        dierDAO.createDier(dier);
+    public Response createDier(DierDto dier) {
+        dierService.createDier(dier);
         return Response.noContent().build();
     }
 
     @PUT
     @Path("/{id}")
-    public Response updateDier(Dier dier, @PathParam("id") Long dierId) {
-        return Response.ok(dierDAO.updateDier(dier, dierId)).build();
+    public Response updateDier(@PathParam("id") long dierId, DierDto dier) {
+        dierService.updateDier(dierId, dier);
+        return Response.ok(dierService.getAnimalById(dierId)).build();
     }
 
     @DELETE
     @Path("/{id}")
     public Response deleteDier(@PathParam("id") Long dierId) {
-        dierDAO.deleteDier(dierId);
+        dierService.deleteDier(dierId);
         return Response.noContent().build();
     }
 }

@@ -1,11 +1,14 @@
 package Asiel.dao;
 
+import Asiel.Dier;
 import Asiel.Verblijf;
+import org.hibernate.Hibernate;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 @Stateless
@@ -20,9 +23,7 @@ public class VerblijfDao {
     }
 
     public Verblijf getVerblijf(long verblijfId) {
-        return (Verblijf) entityManager.createQuery("SELECT v FROM Verblijf v WHERE v.verblijfId = :verblijfId")
-                .setParameter("verblijfId", verblijfId)
-                .getSingleResult();
+        return entityManager.find(Verblijf.class, verblijfId);
     }
 
     public void createVerblijf(Verblijf verblijf) {
@@ -37,6 +38,13 @@ public class VerblijfDao {
 
     public void deleteVerblijf(long verblijfId) {
         entityManager.remove(getVerblijf(verblijfId));
+    }
+
+    public List<Dier> getDierenInVerblijf(long verblijfId) {
+        Verblijf verblijf = getVerblijf(verblijfId);
+        List<Dier> dieren = verblijf.getDieren();
+        Hibernate.initialize(dieren);
+        return dieren;
     }
 
 }

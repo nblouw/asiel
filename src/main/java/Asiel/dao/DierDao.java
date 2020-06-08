@@ -1,6 +1,7 @@
 package Asiel.dao;
 
 import Asiel.Dier;
+import Asiel.exceptions.MyNotFoundException;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -20,10 +21,15 @@ public class DierDao {
     }
 
     public Dier getDier(long dierId) {
-        return (Dier) entityManager.createQuery("SELECT d FROM Dier d WHERE d.dierId = :dierId")
-                .setParameter("dierId", dierId)
-                .getSingleResult();
+        try {
+            return (Dier) entityManager.createQuery("SELECT d FROM Dier d WHERE d.dierId = :dierId")
+                   .setParameter("dierId", dierId)
+                   .getSingleResult();
     }
+        catch (Exception e) {
+            throw new MyNotFoundException("dlskjfsl;jf;les");
+        }
+}
 
     public void createDier(Dier dier) {
         entityManager.persist(dier);

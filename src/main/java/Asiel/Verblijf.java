@@ -3,6 +3,7 @@ package Asiel;
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "Verblijven", uniqueConstraints = {@UniqueConstraint(columnNames = "verblijfId")})
@@ -32,5 +33,12 @@ public class Verblijf implements Serializable {
 
     public void setVerblijfNaam(String verblijfNaam) {
         this.verblijfNaam = verblijfNaam;
+    }
+
+    @OneToMany(mappedBy = "verblijf")
+    private List<Dier> dieren;
+
+    public List<Dier> getDieren() {
+        return dieren;
     }
 }

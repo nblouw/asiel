@@ -1,6 +1,8 @@
 package Asiel;
 
 import Asiel.dao.VerblijfDao;
+import Asiel.dto.VerblijfDto;
+import Asiel.service.VerblijfService;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
@@ -12,11 +14,11 @@ import javax.ws.rs.core.Response;
 @Path("/verblijven")
 public class VerblijvenEndpoint {
 
-    private VerblijfDao verblijfDao;
+    private VerblijfService verblijfService;
 
     @Inject
-    public VerblijvenEndpoint(VerblijfDao verblijfDao) {
-        this.verblijfDao = verblijfDao;
+    public VerblijvenEndpoint(VerblijfService verblijfService) {
+        this.verblijfService = verblijfService;
     }
 
     public VerblijvenEndpoint() {
@@ -25,31 +27,38 @@ public class VerblijvenEndpoint {
 
     @GET
     public Response getVerblijven() {
-        return Response.ok(verblijfDao.getVerblijven()).build();
+        return Response.ok(verblijfService.getVerblijven()).build();
     }
 
     @GET
     @Path("/{id}")
     public Response getVerblijf(@PathParam("id") long verblijfId) {
-        return Response.ok(verblijfDao.getVerblijf(verblijfId)).build();
+        return Response.ok(verblijfService.getVerblijf(verblijfId)).build();
     }
 
     @POST
-    public Response createVerblijf(Verblijf verblijf) {
-        verblijfDao.createVerblijf(verblijf);
+    public Response createVerblijf(VerblijfDto verblijfDto) {
+        verblijfService.createVerblijf(verblijfDto);
         return Response.noContent().build();
     }
 
     @PUT
     @Path("/{id}")
-    public Response updateVerblijf(Verblijf verblijf, @PathParam("id") Long verblijfId) {
-        return Response.ok(verblijfDao.updateVerblijf(verblijf, verblijfId)).build();
+    public Response updateVerblijf(@PathParam("id") long verblijfId, VerblijfDto verblijfDto) {
+        verblijfService.updateVerblijf(verblijfId, verblijfDto);
+        return Response.ok(verblijfService.getVerblijf(verblijfId)).build();
     }
 
     @DELETE
     @Path("/{id}")
     public Response deleteVerblijf(@PathParam("id") Long verblijfId) {
-        verblijfDao.deleteVerblijf(verblijfId);
+        verblijfService.deleteVerblijf(verblijfId);
         return Response.noContent().build();
     }
+//
+//    @GET
+//    @Path("/{id}")
+//    public Response getDierenInVerblijf(@PathParam("id") long verblijfId) {
+//        return Response.ok(verblijfService.getDierenInVerblijf(verblijfId)).build();
+//    }
 }
